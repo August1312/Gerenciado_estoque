@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <!-- Importar o arquivo CSS -->
+    <link rel="stylesheet" href="../static/styler.css">
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+
+    <!-- Formulário para cadastrar novo produto -->
+    <h2>Cadastrar Novo Produto</h2>
+    <form action="/cadastrar" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" required><br><br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" required><br><br>
+
+        <label for="valor">Valor:</label>
+        <!-- Mudar o tipo de input para number para o campo de valor -->
+        <input type="number" id="valor" name="valor" required><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <!-- Formulário para modificar produto -->
+    <h2>Modificar Produto</h2>
+    <form action="/modificar_produto" method="post">
+        <label for="id_modificar">ID do Produto:</label>
+        <input type="text" id="id_modificar" name="id_modificar" required><br><br>
+        <label for="nome_modificar">Novo Nome:</label>
+        <input type="text" id="nome_modificar" name="nome_modificar" required><br><br>
+        <label for="tipo_modificar">Novo Tipo:</label>
+        <input type="text" id="tipo_modificar" name="tipo_modificar" required><br><br>
+        <label for="quantidade_modificar">Nova Quantidade:</label>
+        <input type="number" id="quantidade_modificar" name="quantidade_modificar" required><br><br>
+        <label for="valor_modificar">Novo Valor:</label>
+        <input type="number" id="valor_modificar" name="valor_modificar" required><br><br>
+        <button type="submit">Modificar Produto</button>
+    </form>
+
+    <!-- Tabela de produtos -->
+    <h2>Lista de Produtos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID Produto</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in dados %}
+                <tr>
+                    <!-- Usar um loop para exibir os dados dos produtos -->
+                    <td>{{ produto[0] }}</td>
+                    <td>{{ produto[1] }}</td>
+                    <td>{{ produto[2] }}</td>
+                    <td>{{ produto[3] }}</td>
+                    <td>{{ produto[4] }}</td>
+                    <td>
+                        <!-- Adicionar um botão para excluir o produto -->
+                        <form action="{{ url_for('excluir_produto', id_produto=produto[0]) }}" method="post">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</body>
+</html>
